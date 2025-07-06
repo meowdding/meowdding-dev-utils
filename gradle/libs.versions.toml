@@ -9,6 +9,7 @@ fabric-language-kotlin = "1.13.0+kotlin.2.1.0"
 
 skyblockapi = "1.0.0-beta.126"
 
+meowdding-lib = "1.0.53"
 meowdding-ktmodules = "1.0.5"
 meowdding-ktcodecs = "1.0.23"
 
@@ -31,6 +32,7 @@ kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.re
 
 # Libs with mc version in artifact id
 skyblockapi = { module = "tech.thatgravyboat:skyblock-api-1.21.5", version.ref = "skyblockapi" }
+meowdding-lib = { module = "me.owdding.meowdding-lib:meowdding-lib-1.21.5", version.ref = "meowdding-lib" }
 
 # Other libs
 meowdding-ktmodules = { module = "me.owdding.ktmodules:KtModules", version.ref = "meowdding-ktmodules" }

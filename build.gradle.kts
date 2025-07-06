@@ -16,6 +16,13 @@ repositories {
     mavenCentral()
 }
 
+tasks.getByName<ProcessResources>("processResources") {
+    inputs.dir("src/main/lang")
+    with(copySpec {
+        from("src/main/lang").include("*.json").into("assets/meowdding-dev-utils/lang")
+    })
+}
+
 dependencies {
     compileOnly(libs.bundles.meowdding)
     ksp(libs.meowdding.ktmodules)
@@ -64,5 +71,5 @@ kotlin {
 
 ksp {
     arg("meowdding.project_name", "MiscUtils")
-    arg("meowdding.package", "me.owdding.skyocean.generated")
+    arg("meowdding.package", "me.owdding.misc.utils.generated")
 }

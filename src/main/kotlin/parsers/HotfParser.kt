@@ -2,9 +2,9 @@ package parsers
 
 import me.owdding.ktcodecs.GenerateCodec
 import me.owdding.ktmodules.Module
+import me.owdding.misc.utils.generated.CodecUtils
+import me.owdding.misc.utils.generated.MiscUtilsCodecs
 import me.owdding.misc.utils.utils.asAdventureComponent
-import me.owdding.skyocean.generated.CodecUtils
-import me.owdding.skyocean.generated.MiscUtilsCodecs
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.minecraft.network.chat.ClickEvent
 import tech.thatgravyboat.skyblockapi.api.events.base.Subscription

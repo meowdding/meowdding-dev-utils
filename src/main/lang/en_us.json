@@ -1,0 +1,11 @@
+{
+  "@meowdding:metadata": {
+    "allowMultiline": true,
+    "allowReferences": true,
+    "allowTags": true,
+    "objectAsKeys": true,
+    "prefix": "miscutils"
+  },
+  "@value": "Meowdding dev utils",
+  "keybind.item_debug": "Item Debug UI"
+}
