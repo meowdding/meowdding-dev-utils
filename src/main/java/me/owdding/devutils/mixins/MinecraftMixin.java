@@ -1,10 +1,10 @@
-package me.owdding.misc.utils.mixins;
+package me.owdding.devutils.mixins;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.blaze3d.platform.Window;
-import me.owdding.misc.utils.imgui.ImGuiHelper;
-import me.owdding.misc.utils.utils.PopupScreen;
+import me.owdding.devutils.imgui.ImGuiHelper;
+import me.owdding.devutils.utils.PopupScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import org.spongepowered.asm.mixin.Final;

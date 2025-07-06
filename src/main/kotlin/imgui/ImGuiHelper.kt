@@ -1,4 +1,4 @@
-package me.owdding.misc.utils.imgui
+package me.owdding.devutils.imgui
 
 import com.mojang.blaze3d.opengl.GlDevice
 import com.mojang.blaze3d.opengl.GlStateManager

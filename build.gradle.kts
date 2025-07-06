@@ -2,10 +2,10 @@ plugins {
     alias(libs.plugins.kotlin)
     alias(libs.plugins.ksp)
     alias(libs.plugins.loom)
+    `maven-publish`
 }
 
 group = "me.owdding"
-version = "1.0.0"
 
 repositories {
     maven(url = "https://maven.teamresourceful.com/repository/maven-public/")
@@ -71,5 +71,34 @@ kotlin {
 
 ksp {
     arg("meowdding.project_name", "MiscUtils")
-    arg("meowdding.package", "me.owdding.misc.utils.generated")
+    arg("meowdding.package", "me.owdding.devutils.generated")
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            artifactId = "meowdding-dev-utils"
+            from(components["java"])
+
+            pom {
+                name.set("MeowddingDevUtils")
+                url.set("https://github.com/meowdding/meowdding-dev-utils")
+
+                scm {
+                    connection.set("git:https://github.com/meowdding/meowdding-dev-utils.git")
+                    developerConnection.set("git:https://github.com/meowdding/meowdding-dev-utils.git")
+                    url.set("https://github.com/meowdding/meowdding-dev-utils")
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            setUrl("https://maven.teamresourceful.com/repository/thatgravyboat/")
+            credentials {
+                username = System.getenv("MAVEN_USER") ?: providers.gradleProperty("maven_username").orNull
+                password = System.getenv("MAVEN_PASS") ?: providers.gradleProperty("maven_password").orNull
+            }
+        }
+    }
 }

@@ -1,7 +1,7 @@
-package me.owdding.misc.utils.imgui
+package me.owdding.devutils.imgui
 
 import imgui.ImGuiIO
-import me.owdding.misc.utils.utils.PopupScreen
+import me.owdding.devutils.utils.PopupScreen
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.Screen

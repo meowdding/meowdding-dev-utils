@@ -1,4 +1,4 @@
-package me.owdding.misc.utils.utils
+package me.owdding.devutils.utils
 
 import com.mojang.blaze3d.platform.InputConstants
 import me.owdding.ktmodules.Module

@@ -1,13 +1,13 @@
-package me.owdding.misc.utils
+package me.owdding.devutils
 
+import me.owdding.devutils.generated.MiscUtilsModules
+import me.owdding.devutils.utils.MiscUtilsKeybinding
 import me.owdding.ktmodules.Module
-import me.owdding.misc.utils.generated.MiscUtilsModules
-import me.owdding.misc.utils.utils.MiscUtilsKeybinding
 import net.fabricmc.api.ClientModInitializer
 import tech.thatgravyboat.skyblockapi.api.SkyBlockAPI
 
 @Module
-object MiscUtils : ClientModInitializer {
+object DevUtils : ClientModInitializer {
     override fun onInitializeClient() {
         MiscUtilsModules.init { SkyBlockAPI.eventBus.register(it) }
     }

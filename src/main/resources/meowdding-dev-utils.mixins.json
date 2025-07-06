@@ -2,7 +2,7 @@
   "required": true,
   "minVersion": "0.8",
   "compatibilityLevel": "JAVA_21",
-  "package": "me.owdding.misc.utils.mixins",
+  "package": "me.owdding.devutils.mixins",
   "client": [
     "GameRendererMixin",
     "MinecraftMixin"

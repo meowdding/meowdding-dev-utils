@@ -1,13 +1,12 @@
-package me.owdding.misc.utils.features.itemdata
+package me.owdding.devutils.features.itemdata
 
 import com.google.gson.JsonObject
 import imgui.ImGuiIO
 import imgui.flag.ImGuiInputTextFlags
-import imgui.type.ImBoolean
 import imgui.type.ImString
-import me.owdding.misc.utils.imgui.ImPopupScreen
-import me.owdding.misc.utils.utils.asAdventureComponent
-import me.owdding.misc.utils.utils.contains
+import me.owdding.devutils.imgui.ImPopupScreen
+import me.owdding.devutils.utils.asAdventureComponent
+import me.owdding.devutils.utils.contains
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.minecraft.core.component.DataComponents
 import net.minecraft.nbt.CompoundTag
@@ -28,9 +27,6 @@ import tech.thatgravyboat.skyblockapi.utils.text.Text.send
 import java.util.*
 
 class ItemDataScreen(val itemStack: ItemStack) : ImPopupScreen() {
-    val meow = ImBoolean(true)
-    val meow2 = ImBoolean(false)
-
     val customData by lazy {
         val tag = itemStack.get(DataComponents.CUSTOM_DATA)?.copyTag()
         val data = tag?.toJson(CompoundTag.CODEC)

@@ -1,3 +1,3 @@
-package me.owdding.misc.utils.utils
+package me.owdding.devutils.utils
 
 interface PopupScreen

@@ -1,6 +1,5 @@
-package me.owdding.misc.utils.mixins;
+package me.owdding.devutils.mixins;
 
-import me.owdding.misc.utils.imgui.ImGuiHelper;
 import net.minecraft.client.renderer.GameRenderer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

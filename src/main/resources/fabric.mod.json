@@ -12,13 +12,13 @@
   "license": "MIT",
   "environment": "client",
   "mixins": [
-    "misc-utils.mixins.json"
+    "meowdding-dev-utils.mixins.json"
   ],
   "entrypoints": {
     "client": [
       {
         "adapter": "kotlin",
-        "value": "me.owdding.misc.utils.MiscUtils"
+        "value": "me.owdding.devutils.DevUtils"
       }
     ]
   }

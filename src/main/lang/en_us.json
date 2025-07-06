@@ -4,7 +4,7 @@
     "allowReferences": true,
     "allowTags": true,
     "objectAsKeys": true,
-    "prefix": "miscutils"
+    "prefix": "devutils"
   },
   "@value": "Meowdding dev utils",
   "keybind.item_debug": "Item Debug UI"

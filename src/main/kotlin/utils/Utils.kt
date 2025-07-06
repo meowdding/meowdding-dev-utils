@@ -1,4 +1,4 @@
-package me.owdding.misc.utils.utils
+package me.owdding.devutils.utils
 
 import com.mojang.serialization.JsonOps
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer

@@ -1,4 +1,4 @@
-package me.owdding.misc.utils.imgui
+package me.owdding.devutils.imgui
 
 import imgui.ImGui
 import imgui.ImGuiInputTextCallbackData

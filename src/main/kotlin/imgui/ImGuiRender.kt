@@ -1,6 +1,7 @@
-package me.owdding.misc.utils.imgui
+package me.owdding.devutils.imgui
 
 import imgui.ImGuiIO
+
 
 fun interface ImGuiRender {
     fun render(io: ImGuiIO)
