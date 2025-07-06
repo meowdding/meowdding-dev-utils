@@ -31,11 +31,11 @@ abstract class ImPopupScreen(val parent: Screen? = McScreen.self) : ImScreen(), 
     }
 
     override fun render(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
-        parent?.render(guiGraphics, mouseX, mouseY, partialTick)
+        parent?.render(guiGraphics, -1, -1, partialTick)
         guiGraphics.fill(0, 0, 1, 1, 0)
         parent?.let { renderBlurredBackground() }
 
-        super.render(guiGraphics, -1, -1, partialTick)
+        super.render(guiGraphics, mouseX, mouseY, partialTick)
     }
 
     override fun removed() {
