@@ -3,20 +3,14 @@ package me.owdding.misc.utils.imgui
 import com.mojang.blaze3d.opengl.GlDevice
 import com.mojang.blaze3d.opengl.GlStateManager
 import com.mojang.blaze3d.opengl.GlTexture
-import com.mojang.blaze3d.platform.Window
 import com.mojang.blaze3d.systems.RenderSystem
 import imgui.ImGui
 import imgui.extension.imnodes.ImNodes
 import imgui.extension.implot.ImPlot
-import imgui.flag.ImGuiCond
 import imgui.flag.ImGuiConfigFlags
-import imgui.flag.ImGuiDockNodeFlags
-import imgui.flag.ImGuiStyleVar
-import imgui.flag.ImGuiWindowFlags
 import imgui.gl3.ImGuiImplGl3
 import imgui.glfw.ImGuiImplGlfw
 import net.minecraft.client.Minecraft
-import org.lwjgl.glfw.GLFW
 import org.lwjgl.opengl.GL11
 import org.lwjgl.opengl.GL30
 

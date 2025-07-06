@@ -1,8 +1,12 @@
 package me.owdding.misc.utils.mixins;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.blaze3d.platform.Window;
 import me.owdding.misc.utils.imgui.ImGuiHelper;
+import me.owdding.misc.utils.utils.PopupScreen;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -25,4 +29,11 @@ public class MinecraftMixin {
         ImGuiHelper.INSTANCE.dispose();
     }
 
+    @WrapOperation(method = "setScreen", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/Screen;removed()V"))
+    public void meow(Screen instance, Operation<Void> original) {
+        if (instance instanceof PopupScreen) {
+            return;
+        }
+        original.call(instance);
+    }
 }
