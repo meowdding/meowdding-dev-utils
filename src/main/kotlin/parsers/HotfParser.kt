@@ -1,15 +1,12 @@
 package parsers
 
-import com.mojang.serialization.JsonOps
 import me.owdding.ktcodecs.GenerateCodec
 import me.owdding.ktmodules.Module
+import me.owdding.misc.utils.utils.asAdventureComponent
 import me.owdding.skyocean.generated.CodecUtils
 import me.owdding.skyocean.generated.MiscUtilsCodecs
 import net.kyori.adventure.text.minimessage.MiniMessage
-import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer
 import net.minecraft.network.chat.ClickEvent
-import net.minecraft.network.chat.Component
-import net.minecraft.network.chat.ComponentSerialization
 import tech.thatgravyboat.skyblockapi.api.events.base.Subscription
 import tech.thatgravyboat.skyblockapi.api.events.base.predicates.InventoryTitle
 import tech.thatgravyboat.skyblockapi.api.events.misc.RegisterCommandsEvent
@@ -38,13 +35,9 @@ object HotfParser {
         if (item !in ItemModelTag.HOTF_PERK_ITEMS) return
 
         perks += HotfPerk(
-            MiniMessage.miniMessage().serialize(item.hoverName.asComponent()),
-            item.getLore().map { MiniMessage.miniMessage().serialize(it.asComponent()) }
+            MiniMessage.miniMessage().serialize(item.hoverName.asAdventureComponent()),
+            item.getLore().map { MiniMessage.miniMessage().serialize(it.asAdventureComponent()) }
         )
-    }
-
-    fun Component.asComponent() = ComponentSerialization.CODEC.encodeStart(JsonOps.INSTANCE, this).getOrThrow().let {
-        GsonComponentSerializer.gson().deserialize(it.toString())
     }
 
     @Subscription

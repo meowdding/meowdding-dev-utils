@@ -5,7 +5,9 @@ import imgui.ImGuiInputTextCallbackData
 import imgui.ImVec2
 import imgui.callback.ImGuiInputTextCallback
 import imgui.flag.ImGuiInputTextFlags
+import imgui.flag.ImGuiTreeNodeFlags
 import imgui.flag.ImGuiWindowFlags
+import imgui.type.ImBoolean
 import imgui.type.ImString
 import org.intellij.lang.annotations.MagicConstant
 
@@ -24,6 +26,23 @@ sealed interface ImKotlin {
             if (ImGui.button(label, size)) runnable()
         } else {
             if (ImGui.button(label)) runnable()
+        }
+    }
+
+    fun ImCollapse(
+        label: String,
+        state: ImBoolean? = null,
+        @MagicConstant(flagsFromClass = ImGuiTreeNodeFlags::class) flags: Int = ImGuiTreeNodeFlags.None,
+        init: ImKotlin.() -> Unit,
+    ) = modifiers {
+        if (when {
+                state != null -> ImGui.collapsingHeader(label, state, flags)
+                else -> ImGui.collapsingHeader(label, state, flags)
+            }
+        ) {
+            ImGui.beginGroup()
+            init()
+            ImGui.endGroup()
         }
     }
 

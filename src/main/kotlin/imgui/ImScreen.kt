@@ -2,6 +2,7 @@ package me.owdding.misc.utils.imgui
 
 import imgui.ImGuiIO
 import me.owdding.misc.utils.utils.PopupScreen
+import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.Screen
 import net.minecraft.network.chat.CommonComponents
@@ -24,12 +25,17 @@ abstract class ImScreen : Screen(CommonComponents.EMPTY), ImKotlinHelper {
 
 abstract class ImPopupScreen(val parent: Screen? = McScreen.self) : ImScreen(), PopupScreen {
 
+    override fun resize(minecraft: Minecraft, width: Int, height: Int) {
+        super.resize(minecraft, width, height)
+        parent?.resize(minecraft, width, height)
+    }
+
     override fun render(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
         parent?.render(guiGraphics, mouseX, mouseY, partialTick)
         guiGraphics.fill(0, 0, 1, 1, 0)
         parent?.let { renderBlurredBackground() }
 
-        super.render(guiGraphics, mouseX, mouseY, partialTick)
+        super.render(guiGraphics, -1, -1, partialTick)
     }
 
     override fun removed() {

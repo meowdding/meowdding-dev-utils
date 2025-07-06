@@ -1,31 +1,44 @@
 package me.owdding.misc.utils.features.itemdata
 
+import com.google.gson.JsonObject
 import imgui.ImGuiIO
 import imgui.flag.ImGuiInputTextFlags
 import imgui.type.ImBoolean
 import imgui.type.ImString
 import me.owdding.misc.utils.imgui.ImPopupScreen
+import me.owdding.misc.utils.utils.asAdventureComponent
+import me.owdding.misc.utils.utils.contains
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.minecraft.core.component.DataComponents
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.ComponentSerialization
 import net.minecraft.world.item.ItemStack
-import parsers.HotfParser.asComponent
+import net.minecraft.world.item.Items
+import tech.thatgravyboat.skyblockapi.api.datatype.DataTypes
+import tech.thatgravyboat.skyblockapi.api.datatype.getData
 import tech.thatgravyboat.skyblockapi.helpers.McClient
 import tech.thatgravyboat.skyblockapi.utils.extentions.getLore
 import tech.thatgravyboat.skyblockapi.utils.extentions.getRawLore
+import tech.thatgravyboat.skyblockapi.utils.extentions.getTexture
+import tech.thatgravyboat.skyblockapi.utils.json.Json.readJson
 import tech.thatgravyboat.skyblockapi.utils.json.Json.toJson
 import tech.thatgravyboat.skyblockapi.utils.json.Json.toPrettyString
 import tech.thatgravyboat.skyblockapi.utils.text.Text
 import tech.thatgravyboat.skyblockapi.utils.text.Text.send
+import java.util.*
 
 class ItemDataScreen(val itemStack: ItemStack) : ImPopupScreen() {
-    val meow = ImBoolean(false)
+    val meow = ImBoolean(true)
     val meow2 = ImBoolean(false)
 
     val customData by lazy {
         val tag = itemStack.get(DataComponents.CUSTOM_DATA)?.copyTag()
         val data = tag?.toJson(CompoundTag.CODEC)
+        ImString(data.toPrettyString())
+    }
+
+    val itemData by lazy {
+        val data = itemStack.toJson(ItemStack.OPTIONAL_CODEC)
         ImString(data.toPrettyString())
     }
 
@@ -49,24 +62,70 @@ class ItemDataScreen(val itemStack: ItemStack) : ImPopupScreen() {
                         }
                         ImButton("Tags") {
                             val data = itemStack.getLore()
-                                .joinToString("\n") { MiniMessage.miniMessage().serialize(it.asComponent()) }
+                                .joinToString("\n") { MiniMessage.miniMessage().serialize(it.asAdventureComponent()) }
+                                .replace(Regex("<!.*?>|<(.+)></\\1>"), "")
                             Text.of("Copied tag lore!").send()
-                            println(data)
                             McClient.clipboard = data
                             onClose()
                         }
                     }
-                    ImNewLine()
-                    ImSameLine {
-                        ImText("Custom Data")
-                        ImButton("copy") {
-                            println(customData.get())
-                            Text.of("Copied custom data!").send()
-                            McClient.clipboard = customData.get()
-                            onClose()
+                    if (itemStack in Items.PLAYER_HEAD) {
+                        ImSameLine {
+                            ImButton("Copy Player Skin") {
+                                Text.of("Copied player skin!").send()
+                                McClient.clipboard = itemStack.getTexture()
+                                onClose()
+                            }
+                            ImButton("Skin (URL)") {
+                                runCatching {
+                                    McClient.clipboard =
+                                        Base64.getDecoder().decode(itemStack.getTexture()).decodeToString()
+                                            .readJson<JsonObject>().getAsJsonObject("textures").getAsJsonObject("SKIN")
+                                            .get("url").asString
+                                    Text.of("Copied player skin (url)!").send()
+                                }.getOrElse {
+                                    Text.of("Failed json deserialization!").send()
+                                    Text.of("Copied player skin (json fallback)!").send()
+                                    McClient.clipboard =
+                                        Base64.getDecoder().decode(itemStack.getTexture()).decodeToString()
+                                }
+                                onClose()
+                            }
                         }
                     }
-                    ImMultilineTextInput("", customData, ImGuiInputTextFlags.ReadOnly)
+                    ImNewLine()
+                    ImCollapse("Custom Data") {
+                        ImSameLine {
+                            ImText("Custom Data")
+                            ImButton("copy") {
+                                Text.of("Copied custom data!").send()
+                                McClient.clipboard = customData.get()
+                                onClose()
+                            }
+                            ImButton("Sb Id") {
+                                Text.of("Copied skyblock id!").send()
+                                McClient.clipboard = itemStack.getData(DataTypes.ID)
+                                onClose()
+                            }
+                            ImButton("Api Id") {
+                                Text.of("Copied skyblock id!").send()
+                                McClient.clipboard = itemStack.getData(DataTypes.ID)
+                                onClose()
+                            }
+                        }
+                        ImMultilineTextInput("##customData", customData, ImGuiInputTextFlags.ReadOnly)
+                    }
+                    ImCollapse("Item") {
+                        ImSameLine {
+                            ImText("Item Data")
+                            ImButton("copy") {
+                                Text.of("Copied item data!").send()
+                                McClient.clipboard = itemData.get()
+                                onClose()
+                            }
+                        }
+                        ImMultilineTextInput("##serializedItem", itemData, ImGuiInputTextFlags.ReadOnly, 0f, 200f)
+                    }
                 }
             }
         }
