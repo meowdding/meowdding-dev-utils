@@ -9,7 +9,7 @@ import tech.thatgravyboat.skyblockapi.api.events.screen.ScreenKeyPressedEvent
 import tech.thatgravyboat.skyblockapi.api.events.screen.ScreenKeyReleasedEvent
 import tech.thatgravyboat.skyblockapi.api.events.time.TickEvent
 
-data class MiscUtilsKeybinding(
+data class DevUtilsKeybinding(
     private val translationKey: String,
     private val keyCode: Int = InputConstants.UNKNOWN.value,
     private val allowMultipleExecutions: Boolean = false,
@@ -21,7 +21,7 @@ data class MiscUtilsKeybinding(
         }
     }
 
-    val key: KeyMapping = KeyBindingHelper.registerKeyBinding(KeyMapping(translationKey, keyCode, "miscutils"))
+    val key: KeyMapping = KeyBindingHelper.registerKeyBinding(KeyMapping(translationKey, keyCode, "devutils"))
 
     val isDown get() = key.isDown
 
@@ -31,7 +31,7 @@ data class MiscUtilsKeybinding(
 
     @Module
     companion object {
-        private val knownKeybinds = mutableListOf<MiscUtilsKeybinding>()
+        private val knownKeybinds = mutableListOf<DevUtilsKeybinding>()
 
         @Subscription(event = [TickEvent::class])
         fun onTick() {

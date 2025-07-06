@@ -70,7 +70,7 @@ kotlin {
 }
 
 ksp {
-    arg("meowdding.project_name", "MiscUtils")
+    arg("meowdding.project_name", "DevUtils")
     arg("meowdding.package", "me.owdding.devutils.generated")
 }
 
