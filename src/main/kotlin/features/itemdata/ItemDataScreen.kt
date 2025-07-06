@@ -8,6 +8,7 @@ import me.owdding.devutils.imgui.ImPopupScreen
 import me.owdding.devutils.utils.asAdventureComponent
 import me.owdding.devutils.utils.contains
 import net.kyori.adventure.text.minimessage.MiniMessage
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import net.minecraft.core.component.DataComponents
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.ComponentSerialization
@@ -61,6 +62,15 @@ class ItemDataScreen(val itemStack: ItemStack) : ImPopupScreen() {
                                 .joinToString("\n") { MiniMessage.miniMessage().serialize(it.asAdventureComponent()) }
                                 .replace(Regex("<!.*?>|<(.+)></\\1>"), "")
                             Text.of("Copied tag lore!").send()
+                            McClient.clipboard = data
+                            onClose()
+                        }
+                        ImButton("Legacy") {
+                            val data = itemStack.getLore()
+                                .joinToString("\n") {
+                                    LegacyComponentSerializer.legacySection().serialize(it.asAdventureComponent())
+                                }
+                            Text.of("Copied legacy lore!").send()
                             McClient.clipboard = data
                             onClose()
                         }
