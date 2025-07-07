@@ -5,9 +5,9 @@ import imgui.ImGuiIO
 import imgui.flag.ImGuiInputTextFlags
 import imgui.type.ImString
 import me.owdding.devutils.imgui.ImPopupScreen
+import me.owdding.devutils.serializer.TagComponentSerializer
 import me.owdding.devutils.utils.asAdventureComponent
 import me.owdding.devutils.utils.contains
-import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import net.minecraft.core.component.DataComponents
 import net.minecraft.nbt.CompoundTag
@@ -58,9 +58,7 @@ class ItemDataScreen(val itemStack: ItemStack) : ImPopupScreen() {
                             onClose()
                         }
                         ImButton("Tags") {
-                            val data = itemStack.getLore()
-                                .joinToString("\n") { MiniMessage.miniMessage().serialize(it.asAdventureComponent()) }
-                                .replace(Regex("<!.*?>|<(.+)></\\1>"), "")
+                            val data = itemStack.getLore().joinToString("\n") { TagComponentSerializer.serialize(it) }
                             Text.of("Copied tag lore!").send()
                             McClient.clipboard = data
                             onClose()
