@@ -4,6 +4,7 @@ import com.google.gson.JsonObject
 import imgui.ImGuiIO
 import imgui.flag.ImGuiInputTextFlags
 import imgui.type.ImString
+import me.owdding.devutils.features.itemdata.Holder.copier
 import me.owdding.devutils.imgui.ImPopupScreen
 import me.owdding.devutils.serializer.TagComponentSerializer
 import me.owdding.devutils.utils.asAdventureComponent
@@ -26,6 +27,11 @@ import tech.thatgravyboat.skyblockapi.utils.json.Json.toPrettyString
 import tech.thatgravyboat.skyblockapi.utils.text.Text
 import tech.thatgravyboat.skyblockapi.utils.text.Text.send
 import java.util.*
+
+object Holder {
+    lateinit var copier: LoreCopier
+    fun isCopierInizialised() = this::copier.isInitialized
+}
 
 class ItemDataScreen(val itemStack: ItemStack) : ImPopupScreen() {
     val customData by lazy {
@@ -52,27 +58,33 @@ class ItemDataScreen(val itemStack: ItemStack) : ImPopupScreen() {
                             onClose()
                         }
                         ImButton("Raw") {
-                            val data = itemStack.getRawLore().joinToString("\n")
+                            val data = itemStack.getRawLore()
                             Text.of("Copied raw lore!").send()
-                            McClient.clipboard = data
+                            McClient.clipboard = copier.copy(data)
                             onClose()
                         }
                         ImButton("Tags") {
-                            val data = itemStack.getLore().joinToString("\n") { TagComponentSerializer.serialize(it) }
+                            val data = itemStack.getLore().map { TagComponentSerializer.serialize(it) }
                             Text.of("Copied tag lore!").send()
-                            McClient.clipboard = data
+                            McClient.clipboard = copier.copy(data)
                             onClose()
                         }
                         ImButton("Legacy") {
-                            val data = itemStack.getLore()
-                                .joinToString("\n") {
+                            val data = itemStack.getLore().map {
                                     LegacyComponentSerializer.legacySection().serialize(it.asAdventureComponent())
                                 }
                             Text.of("Copied legacy lore!").send()
-                            McClient.clipboard = data
+                            McClient.clipboard = copier.copy(data)
                             onClose()
                         }
                     }
+                    ImDropdown(
+                        "##copier",
+                        LoreCopier.STRING,
+                        LoreCopier.entries,
+                        Holder::copier,
+                        Holder.isCopierInizialised()
+                    ) { it.name }
                     if (itemStack in Items.PLAYER_HEAD) {
                         ImSameLine {
                             ImButton("Copy Player Skin") {

@@ -4,12 +4,14 @@ import imgui.ImGui
 import imgui.ImGuiInputTextCallbackData
 import imgui.ImVec2
 import imgui.callback.ImGuiInputTextCallback
+import imgui.flag.ImGuiComboFlags
 import imgui.flag.ImGuiInputTextFlags
 import imgui.flag.ImGuiTreeNodeFlags
 import imgui.flag.ImGuiWindowFlags
 import imgui.type.ImBoolean
 import imgui.type.ImString
 import org.intellij.lang.annotations.MagicConstant
+import kotlin.reflect.KMutableProperty0
 
 
 sealed interface ImKotlin {
@@ -20,6 +22,28 @@ sealed interface ImKotlin {
     }
 
     fun ImNewLine() = ImGui.newLine()
+
+    fun <T> ImDropdown(
+        label: String,
+        defaultValue: T,
+        values: Iterable<T>,
+        state: KMutableProperty0<T>,
+        isInitialized: Boolean,
+        @MagicConstant(flagsFromClass = ImGuiComboFlags::class) flags: Int = ImGuiComboFlags.None,
+        display: (T) -> String,
+    ) = modifiers {
+        if (!isInitialized) {
+            state.set(defaultValue)
+        }
+        if (ImGui.beginCombo(label, display(state.get()))) {
+            values.forEach { value ->
+                if (ImGui.selectable(display(value), state.get() == value)) {
+                    state.set(value)
+                }
+            }
+            ImGui.endCombo()
+        }
+    }
 
     fun ImButton(label: String, size: ImVec2? = null, runnable: () -> Unit = {}) = modifiers {
         if (size != null) {
