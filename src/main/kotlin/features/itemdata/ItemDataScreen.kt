@@ -50,7 +50,7 @@ class ItemDataScreen(val itemStack: ItemStack) : ImPopupScreen() {
         ImWindow("Item") {
             ImTabBar("things") {
                 ImTab("Data") {
-                    ImSameLine {
+                    ImSameLine("Name") {
                         ImText("Name")
                         ImButton("Component") {
                             val data = itemStack.hoverName.toJson(ComponentSerialization.CODEC)
@@ -78,7 +78,7 @@ class ItemDataScreen(val itemStack: ItemStack) : ImPopupScreen() {
                             onClose()
                         }
                     }
-                    ImSameLine {
+                    ImSameLine("Lore") {
                         ImText("Lore")
                         ImButton("Component") {
                             val data = itemStack.getLore().toJson(ComponentSerialization.CODEC.listOf())

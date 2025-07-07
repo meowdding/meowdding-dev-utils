@@ -17,8 +17,10 @@ import kotlin.reflect.KMutableProperty0
 sealed interface ImKotlin {
     val inline: Boolean
 
-    fun ImSameLine(init: ImKotlin.() -> Unit) {
+    fun ImSameLine(id: String? = null, init: ImKotlin.() -> Unit) {
+        if (id != null) ImGui.pushID(id)
         copy(true).init()
+        if (id != null) ImGui.popID()
     }
 
     fun ImNewLine() = ImGui.newLine()
