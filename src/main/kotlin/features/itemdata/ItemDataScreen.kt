@@ -26,6 +26,7 @@ import tech.thatgravyboat.skyblockapi.utils.json.Json.toJson
 import tech.thatgravyboat.skyblockapi.utils.json.Json.toPrettyString
 import tech.thatgravyboat.skyblockapi.utils.text.Text
 import tech.thatgravyboat.skyblockapi.utils.text.Text.send
+import tech.thatgravyboat.skyblockapi.utils.text.TextProperties.stripped
 import java.util.*
 
 object Holder {
@@ -49,6 +50,34 @@ class ItemDataScreen(val itemStack: ItemStack) : ImPopupScreen() {
         ImWindow("Item") {
             ImTabBar("things") {
                 ImTab("Data") {
+                    ImSameLine {
+                        ImText("Name")
+                        ImButton("Component") {
+                            val data = itemStack.hoverName.toJson(ComponentSerialization.CODEC)
+                            Text.of("Copied component title!").send()
+                            McClient.clipboard = data.toPrettyString()
+                            onClose()
+                        }
+                        ImButton("Raw") {
+                            val data = itemStack.hoverName.stripped
+                            Text.of("Copied raw title!").send()
+                            McClient.clipboard = data
+                            onClose()
+                        }
+                        ImButton("Tags") {
+                            val data = TagComponentSerializer.serialize(itemStack.hoverName)
+                            Text.of("Copied tag title!").send()
+                            McClient.clipboard = data
+                            onClose()
+                        }
+                        ImButton("Legacy") {
+                            val data = LegacyComponentSerializer.legacySection()
+                                .serialize(itemStack.hoverName.asAdventureComponent())
+                            Text.of("Copied legacy title!").send()
+                            McClient.clipboard = data
+                            onClose()
+                        }
+                    }
                     ImSameLine {
                         ImText("Lore")
                         ImButton("Component") {
