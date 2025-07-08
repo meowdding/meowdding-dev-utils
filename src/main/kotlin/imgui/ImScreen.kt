@@ -1,5 +1,6 @@
 package me.owdding.devutils.imgui
 
+import imgui.ImGui
 import imgui.ImGuiIO
 import me.owdding.devutils.utils.PopupScreen
 import net.minecraft.client.Minecraft
@@ -10,6 +11,11 @@ import tech.thatgravyboat.skyblockapi.helpers.McClient
 import tech.thatgravyboat.skyblockapi.helpers.McScreen
 
 abstract class ImScreen : Screen(CommonComponents.EMPTY), ImKotlinHelper {
+
+    override fun init() {
+        ImGui.getIO().clearInputKeys()
+        ImGui.getIO().clearInputCharacters()
+    }
 
     override fun render(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
         ImGuiHelper.draw(::draw)
