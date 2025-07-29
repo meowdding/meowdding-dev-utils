@@ -1,28 +1,25 @@
 [versions]
 
-minecraft = "1.21.5"
 parchmentmc = "2025.04.19@zip"
-fabric-loom = "1.10-SNAPSHOT"
+
 fabric-loader = "0.16.14"
-fabric-api = "0.127.1+1.21.5"
 fabric-language-kotlin = "1.13.0+kotlin.2.1.0"
+fabric-api = "0.129.0"
 
-skyblockapi = "1.0.0-beta.126"
+skyblockapi = "2.1.2"
 
-meowdding-lib = "1.0.53"
+meowdding-lib = "2.1.5"
 meowdding-ktmodules = "1.0.5"
 meowdding-ktcodecs = "1.0.23"
+meowdding-repo = "1.0.15"
 
 kotlin = "2.1.20"
-ksp = "2.1.20-2.0.0"
+kotlin-symbol-processor = "2.1.20-2.0.0"
 
-# Dev Dependencies
-devauth = "1.2.1"
-modmenu = "14.0.0-rc.2"
+terrarium-cloche = "0.11.6"
 
 [libraries]
 
-minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
 parchmentmc = { module = "org.parchmentmc.data:parchment-1.21.5", version.ref = "parchmentmc" }
 
 fabric-loader = { module = "net.fabricmc:fabric-loader", version.ref = "fabric-loader" }
@@ -31,22 +28,21 @@ fabric-language-kotlin = { module = "net.fabricmc:fabric-language-kotlin", versi
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
 
 # Libs with mc version in artifact id
-skyblockapi = { module = "tech.thatgravyboat:skyblock-api-1.21.5", version.ref = "skyblockapi" }
-meowdding-lib = { module = "me.owdding.meowdding-lib:meowdding-lib-1.21.5", version.ref = "meowdding-lib" }
+skyblockapi = { module = "tech.thatgravyboat:skyblock-api", version.ref = "skyblockapi" }
+meowdding-lib = { module = "me.owdding.meowdding-lib:meowdding-lib", version.ref = "meowdding-lib" }
 
 # Other libs
 meowdding-ktmodules = { module = "me.owdding.ktmodules:KtModules", version.ref = "meowdding-ktmodules" }
 meowdding-ktcodecs = { module = "me.owdding.ktcodecs:KtCodecs", version.ref = "meowdding-ktcodecs" }
 
-# Dev libs
-devauth = { module = "me.djtheredstoner:DevAuth-fabric", version.ref = "devauth" }
-modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
-
 [bundles]
 meowdding = ["meowdding-ktmodules", "meowdding-ktcodecs"]
-fabric = ["fabric-loader", "fabric-language-kotlin", "fabric-api"]
 
 [plugins]
-loom = { id = "fabric-loom", version.ref = "fabric-loom" }
+terrarium-cloche = { id = "earth.terrarium.cloche", version.ref = "terrarium-cloche" }
+
 kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+kotlin-symbol-processor = { id = "com.google.devtools.ksp", version.ref = "kotlin-symbol-processor" }
+meowdding-resources = { id = "me.owdding.resources" } # already loaded through buildSrc so no version required
+meowdding-repo = { id = "me.owdding.repo", version.ref = "meowdding-repo" }
+

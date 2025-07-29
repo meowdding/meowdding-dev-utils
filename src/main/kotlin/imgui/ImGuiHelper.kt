@@ -16,6 +16,8 @@ import org.lwjgl.opengl.GL30
 
 object ImGuiHelper {
 
+    val operations: MutableList<ImGuiRender> = mutableListOf()
+
     val glfw = ImGuiImplGlfw()
     val gl3 = ImGuiImplGl3()
 
@@ -34,7 +36,20 @@ object ImGuiHelper {
         gl3.init()
     }
 
-    fun draw(runnable: ImGuiRender) {
+    fun draw(runnable: ImGuiRender) = operations.add(runnable)
+
+    fun dispose() {
+        glfw.shutdown()
+        gl3.shutdown()
+
+        ImPlot.destroyContext()
+        ImNodes.destroyContext()
+        ImGui.destroyContext()
+    }
+
+    fun dispatch() {
+        if (operations.isEmpty()) return
+
         val framebuffer = Minecraft.getInstance().mainRenderTarget
         val fbo = (framebuffer.colorTexture as? GlTexture)?.getFbo(
             (RenderSystem.getDevice() as GlDevice).directStateAccess(),
@@ -47,21 +62,12 @@ object ImGuiHelper {
         glfw.newFrame()
         ImGui.newFrame()
 
-        runnable.render(ImGui.getIO())
+        operations.forEach { it.render(ImGui.getIO()) }
 
         ImGui.render()
         gl3.renderDrawData(ImGui.getDrawData())
 
         GlStateManager._glBindFramebuffer(GL30.GL_FRAMEBUFFER, fbo)
-    }
-
-    fun dispose() {
-        glfw.shutdown()
-        gl3.shutdown()
-
-        ImPlot.destroyContext()
-        ImNodes.destroyContext()
-        ImGui.destroyContext()
     }
 
 }

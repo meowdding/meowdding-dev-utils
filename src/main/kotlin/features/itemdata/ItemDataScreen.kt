@@ -118,7 +118,7 @@ class ItemDataScreen(val itemStack: ItemStack) : ImPopupScreen() {
                         ImSameLine {
                             ImButton("Copy Player Skin") {
                                 Text.of("Copied player skin!").send()
-                                McClient.clipboard = itemStack.getTexture()
+                                McClient.clipboard = itemStack.getTexture()!!
                                 onClose()
                             }
                             ImButton("Skin (URL)") {
@@ -149,12 +149,12 @@ class ItemDataScreen(val itemStack: ItemStack) : ImPopupScreen() {
                             }
                             ImButton("Sb Id") {
                                 Text.of("Copied skyblock id!").send()
-                                McClient.clipboard = itemStack.getData(DataTypes.ID)
+                                McClient.clipboard = itemStack.getData(DataTypes.ID)!!
                                 onClose()
                             }
                             ImButton("Api Id") {
                                 Text.of("Copied skyblock id!").send()
-                                McClient.clipboard = itemStack.getData(DataTypes.ID)
+                                McClient.clipboard = itemStack.getData(DataTypes.ID)!!
                                 onClose()
                             }
                         }

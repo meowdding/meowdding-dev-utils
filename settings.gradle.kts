@@ -1,8 +1,8 @@
 pluginManagement {
     repositories {
-        mavenCentral()
-        maven("https://maven.fabricmc.net/")
+        gradlePluginPortal()
         maven(url = "https://maven.teamresourceful.com/repository/maven-public/")
+        maven(url = "https://maven.teamresourceful.com/repository/msrandom/")
     }
 }
 

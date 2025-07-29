@@ -14,7 +14,7 @@ import org.intellij.lang.annotations.MagicConstant
 import kotlin.reflect.KMutableProperty0
 
 
-sealed interface ImKotlin {
+interface ImKotlin {
     val inline: Boolean
 
     fun ImSameLine(id: String? = null, init: ImKotlin.() -> Unit) {
@@ -138,6 +138,10 @@ sealed interface ImKotlin {
             ImContext.INSTANCE.init()
         }
         ImGui.end()
+    }
+
+    companion object {
+        val INSTANCE: ImKotlin = ImContext.INSTANCE
     }
 }
 

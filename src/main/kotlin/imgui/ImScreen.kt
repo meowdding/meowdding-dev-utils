@@ -18,8 +18,8 @@ abstract class ImScreen : Screen(CommonComponents.EMPTY), ImKotlinHelper {
     }
 
     override fun render(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
-        ImGuiHelper.draw(::draw)
         guiGraphics.fill(0, 0, 10, 10, 0)
+        ImGuiHelper.draw(::draw)
     }
 
     abstract fun draw(io: ImGuiIO)
@@ -37,9 +37,8 @@ abstract class ImPopupScreen(val parent: Screen? = McScreen.self) : ImScreen(), 
     }
 
     override fun render(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
-        parent?.render(guiGraphics, -1, -1, partialTick)
-        guiGraphics.fill(0, 0, 1, 1, 0)
-        parent?.let { renderBlurredBackground() }
+        //parent?.render(guiGraphics, -1, -1, partialTick)
+        //parent?.let { guiGraphics.applyBackgroundBlur() }
 
         super.render(guiGraphics, mouseX, mouseY, partialTick)
     }
